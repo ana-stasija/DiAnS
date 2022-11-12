@@ -1,8 +1,8 @@
 # Domasni po kursot DiAnS
  
-# Анастасија Стојкоска -
+# Анастасија Стојкоска -201079
 # Беќир Фазли -191045
 # Filip Trajkovski-201087
-# Ана Постоловска-
-# Borche Todorov-
+# Ана Постоловска-201116
+# Borche Todorov-191096
 
