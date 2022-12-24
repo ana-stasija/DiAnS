@@ -13,6 +13,16 @@ import 'leaflet-routing-machine';
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
+  userIcon = L.icon({
+    iconUrl: '../assets/userLocation.png',
+    shadowUrl: '../assets/userLocation.png',
+
+    iconSize:     [30, 45], // size of the icon
+    shadowSize:   [0, 0], // size of the shadow
+    iconAnchor:   [22, 45], // point of the icon which will correspond to marker's location
+    shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+  });
   public map: any;
   private lat: any;
   private long: any;
@@ -57,7 +67,7 @@ export class MapComponent implements OnInit {
     // }
 
     tiles.addTo(this.map);
-    L.marker([this.lat,this.long] as LatLngExpression).addTo(this.map);
+    L.marker([this.lat,this.long] as LatLngExpression, {icon: this.userIcon}).addTo(this.map);
     //first line routing
     L.Routing.control({
       router: L.Routing.osrmv1({
