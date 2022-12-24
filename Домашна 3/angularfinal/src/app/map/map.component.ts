@@ -14,6 +14,8 @@ import 'leaflet-routing-machine';
 })
 export class MapComponent implements OnInit {
   public map: any;
+  private lat: any;
+  private long: any;
   private element: any;
   public centroid: L.LatLngExpression = [41.9981, 21.4254]; //
   private layerGroup: any;
@@ -53,7 +55,9 @@ export class MapComponent implements OnInit {
     //     x => x.addTo(this.map)
     //   );
     // }
+
     tiles.addTo(this.map);
+    L.marker([this.lat,this.long] as LatLngExpression).addTo(this.map);
     //first line routing
     L.Routing.control({
       router: L.Routing.osrmv1({
@@ -81,6 +85,11 @@ export class MapComponent implements OnInit {
 
 
   ngOnInit(): void {
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.lat=position.coords.latitude;
+      this.long=position.coords.longitude;
+      console.log(`lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`);
+    });
     this.placeService.getAllBooks().subscribe(
       (data) => {
         this.place = data
@@ -97,6 +106,7 @@ export class MapComponent implements OnInit {
   }
   showMarkers(amenity: string): void{
     this.layerGroup.clearLayers();
+
     for(let i=0;i<this.place.length;i++) {
 
 
