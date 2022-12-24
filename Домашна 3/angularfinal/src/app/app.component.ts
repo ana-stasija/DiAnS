@@ -8,6 +8,7 @@ import * as L from 'leaflet';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  title="SkopjeMove";
   // // @ts-ignore
   // map;
   //

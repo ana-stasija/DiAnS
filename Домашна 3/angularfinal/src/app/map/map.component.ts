@@ -4,6 +4,8 @@ import {PlaceService} from "../services/place.service";
 import {Place} from "../model/place";
 import {LatLngExpression} from "leaflet";
 import {MapMarkerService} from "../services/map-marker.service";
+import 'leaflet-routing-machine';
+
 
 @Component({
   selector: 'app-map',
@@ -52,12 +54,31 @@ export class MapComponent implements OnInit {
     //   );
     // }
     tiles.addTo(this.map);
+    //first line routing
+    L.Routing.control({
+      router: L.Routing.osrmv1({
+        serviceUrl:'http://router.project-osrm.org/route/v1'
+      }),
+      showAlternatives: true,
+      lineOptions:{
+        styles:[{color:'#242c81',weight:7}],extendToWaypoints:true,missingRouteTolerance:1000},
+      fitSelectedRoutes: false,
+      altLineOptions: {styles: [{color: '#ed6852', weight: 7}],extendToWaypoints:true,missingRouteTolerance:1000},
+      show: false,
+      routeWhileDragging: true,
+      waypoints: [
+        L.latLng(41.9981, 21.4254),
+        L.latLng(42.008232, 21.459574)
+      ],
+    }).addTo(this.map);
 
+//last line of routing
   }
 
   constructor(private placeService: PlaceService, private markerService: MapMarkerService) {
 
   }
+
 
   ngOnInit(): void {
     this.placeService.getAllBooks().subscribe(
@@ -73,7 +94,6 @@ export class MapComponent implements OnInit {
         // this.markerService.makeMarkers(this.map,this.place.at(2),this.centroid)
       }
     );
-
   }
   showMarkers(amenity: string): void{
     this.layerGroup.clearLayers();
