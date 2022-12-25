@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import {PlaceService} from "../services/place.service";
 import {Place} from "../model/place";
-import {LatLngExpression} from "leaflet";
+import {LatLngExpression, marker} from "leaflet";
 import {MapMarkerService} from "../services/map-marker.service";
 import 'leaflet-routing-machine';
 
@@ -38,12 +38,32 @@ export class MapComponent implements OnInit {
       zoom: 12
     });
 
-    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+// Define the base layers
+    const streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       minZoom: 10,
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
     });
-    this.layerGroup = L.layerGroup().addTo(this.map);
+    const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 18,
+      minZoom: 10,
+      attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    });
+    const terrain = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 18,
+      minZoom: 10,
+      attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
+    });
+
+// Add the base layers to the map
+    streets.addTo(this.map);
+
+// Add a layer control to switch between different map layers
+    L.control.layers({
+      "Streets": streets,
+      "Satellite": satellite,
+      "Terrain": terrain
+    }).addTo(this.map);
     // create 5 random jitteries and add them to map
     // const jittery = Array(5).fill(this.centroid).map(
     //   x => [x[0] + (Math.random() - .5)/10, x[1] + (Math.random() - .5)/10 ]
@@ -65,9 +85,7 @@ export class MapComponent implements OnInit {
     //     x => x.addTo(this.map)
     //   );
     // }
-
-    tiles.addTo(this.map);
-    L.marker([this.lat,this.long] as LatLngExpression, {icon: this.userIcon}).addTo(this.map);
+     L.marker([this.lat,this.long] as LatLngExpression, {icon: this.userIcon}).addTo(this.map);
     //first line routing
     L.Routing.control({
       router: L.Routing.osrmv1({
@@ -79,9 +97,9 @@ export class MapComponent implements OnInit {
       fitSelectedRoutes: false,
       altLineOptions: {styles: [{color: '#ed6852', weight: 7}],extendToWaypoints:true,missingRouteTolerance:1000},
       show: false,
-      routeWhileDragging: true,
+      routeWhileDragging: false,
       waypoints: [
-        L.latLng(41.9981, 21.4254),
+        L.latLng(this.lat, this.long),
         L.latLng(42.008232, 21.459574)
       ],
     }).addTo(this.map);
