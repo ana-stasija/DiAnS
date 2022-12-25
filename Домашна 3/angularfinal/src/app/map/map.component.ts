@@ -161,12 +161,12 @@ export class MapComponent implements OnInit {
              router: L.Routing.osrmv1({
                serviceUrl:'http://router.project-osrm.org/route/v1'
              }),
-             showAlternatives: false,
+             showAlternatives: true,
              lineOptions:{
                styles:[{color:'#242c81',weight:7}],extendToWaypoints:true,missingRouteTolerance:1000},
              fitSelectedRoutes: true,
              altLineOptions: {styles: [{color: '#ed6852', weight: 7}],extendToWaypoints:true,missingRouteTolerance:1000},
-             show: false,
+             show: true,
              routeWhileDragging: false,
              waypoints: [
                this.element.getLatLng(),
