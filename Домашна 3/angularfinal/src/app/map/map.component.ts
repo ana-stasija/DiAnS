@@ -146,10 +146,11 @@ export class MapComponent implements OnInit {
              router: L.Routing.osrmv1({
                serviceUrl:'http://router.project-osrm.org/route/v1'
              }),
-             showAlternatives: false,
+             showAlternatives: true,
              lineOptions:{
                styles:[{color:'#242c81',weight:7}],extendToWaypoints:true,missingRouteTolerance:1000},
              fitSelectedRoutes: true,
+
              altLineOptions: {styles: [{color: '#ed6852', weight: 7}],extendToWaypoints:true,missingRouteTolerance:1000},
              show: false,
              routeWhileDragging: false,
@@ -161,7 +162,7 @@ export class MapComponent implements OnInit {
         });
         // @ts-ignore
         marker.bindPopup(`Име: ${this.place.at(i).name}<br>Објект: ${this.place.at(i).amenity}`).openPopup();
-      }
+        this.map.setView(this.centroid, 12); this.map.setView(this.centroid, 12);      }
     }
   }
   // initMarkers(amenity:string): void{
