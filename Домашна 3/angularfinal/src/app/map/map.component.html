@@ -18,8 +18,8 @@
 <!--  <button (click)="showMarkers('supermarket')">Show Supermarkets</button>-->
 <!--  <button (click)="showMarkers('university')">Show Universities</button><br>-->
 <!--</div>-->
-<div>
-  <label>Choose what you want do display on map:</label>
+<div id="prvdiv">
+  <label id="labela">Choose what you want do display on map:</label>
 
   <select #places (change)="showMarkers(places.value)">
     <option value="all">All</option>
@@ -34,6 +34,9 @@
 <!--  <button (click)="showMarkers()">Show Universities</button><br>-->
 </div>
 <div class="topnav">
-  <input #submit type="text" placeholder="Search..">
+  <input #submit type="text" placeholder="Search for specific place...">
   <button (click)="showMarkersBySearch(submit.value)">Submit</button>
+</div>
+<div id="contact">
+  <p>Contact: filiptrajkovski01@yahoo.com</p>
 </div>

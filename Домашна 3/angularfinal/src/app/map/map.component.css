@@ -1,4 +1,12 @@
-
+#prvdiv{
+width: 40%;
+padding-top: 150px;
+  padding-left: 100px;
+}
+#contact{
+  clear:both;
+  color: blue;
+}
 .map-container {
 
   top: 0;
@@ -26,4 +34,7 @@ button {
 }
 #markeri{
   width: 50%;
+}
+.topnav{
+  padding-left: 100px;
 }
