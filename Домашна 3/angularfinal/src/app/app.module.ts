@@ -19,7 +19,7 @@ import {MapMarkerService} from "./services/map-marker.service";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [MapComponent,MapMarkerService],
   bootstrap: [AppComponent]

@@ -5,6 +5,7 @@ import {Place} from "../model/place";
 import {LatLngExpression, marker} from "leaflet";
 import {MapMarkerService} from "../services/map-marker.service";
 import 'leaflet-routing-machine';
+import 'leaflet.fullscreen';
 
 
 @Component({
@@ -36,9 +37,16 @@ export class MapComponent implements OnInit {
   private place: Place[];
   initMap(): void {
     console.log(this.place);
+
     this.map = L.map('map', {
       center: this.centroid,
-      zoom: 14
+      zoom: 11,
+      //@ts-ignore
+      fullscreenControl: {
+        position: 'topleft',
+        title: 'Toggle Fullscreen',
+        titleCancel: 'Exit Fullscreen'
+      }
     });
     // Define the base layers
     const streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
