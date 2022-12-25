@@ -1,1 +1,73 @@
 /* You can add global styles to this file, and also import other style files */
+html{
+  height: 90%;
+}
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: #376131 linear-gradient(to bottom, #B4FFD2 0%, #376131 100%) no-repeat;
+}
+#labela{
+  font-size: 20px;
+  padding: 0 0 100px 0;
+  margin: 10px;
+}
+.main {
+  width: 400px;
+  margin: 10% auto 0;
+  padding: 20px;
+  text-align: center;
+  background-size: cover;
+}
+.title{
+  font-family: sans-serif;
+  color: #2f2f2f;
+  margin:0;
+  padding: 0;
+  border-bottom: 3px solid black;
+  text-align: center;
+}
+.title h1{
+  margin:20px;
+  padding: 30px 0 25px 0;
+  background: #FFF linear-gradient(0deg, #01AEC6,#01444D 100%) no-repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.main h2 {
+  font-family: sans-serif;
+  color: #2f2f2f;
+  margin: 0 0 50px;
+  padding: 0;
+  text-align: center;
+}
+.main  {
+  width: 50%;
+  margin: 0 0 10px;
+  background: #FFFFFF;
+  outline: none;
+  padding: 10px;
+  border-radius: 0;
+  box-sizing: border-box;
+  border: none;
+  font-size: 14px;
+  font-family: sans-serif;
+  color: #2f2f2f;
+  cursor: pointer;
+}
+.main,.input {
+  width:350px;
+  margin: 0 0 10px;
+  background: #FFFFFF;
+  outline: none;
+  padding: 10px;
+  border-radius: 0;
+  box-sizing: border-box;
+  border: none;
+  font-size: 14px;
+  font-family: sans-serif;
+  color: #2f2f2f;
+  cursor: pointer;
+}

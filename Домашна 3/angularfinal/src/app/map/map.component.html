@@ -21,7 +21,7 @@
 <div id="prvdiv">
   <label id="labela">Choose what you want do display on map:</label>
 
-  <select #places (change)="showMarkers(places.value)">
+  <select class="main" #places (change)="showMarkers(places.value)">
     <option value="all">All</option>
     <option value="hospital">Hospitals</option>
     <option value="cafe">Cafes</option>
@@ -34,8 +34,8 @@
 <!--  <button (click)="showMarkers()">Show Universities</button><br>-->
 </div>
 <div class="topnav">
-  <input #submit type="text" placeholder="Search for specific place...">
-  <button (click)="showMarkersBySearch(submit.value)">Submit</button>
+  <input  class="main input" #submit type="text" placeholder="Search for specific place...">
+  <button class="main "(click)="showMarkersBySearch(submit.value)">Submit</button>
 </div>
 <div id="contact">
   <p>Contact:</p>

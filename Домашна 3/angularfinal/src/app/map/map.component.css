@@ -4,8 +4,10 @@ padding-top: 150px;
   padding-left: 100px;
 }
 #contact{
+  margin: 2px;
+  padding: 10px;
   clear:both;
-  color: blue;
+  color: #FFFFFF;
 }
 .map-container {
 
@@ -38,3 +40,4 @@ button {
 .topnav{
   padding-left: 100px;
 }
+
