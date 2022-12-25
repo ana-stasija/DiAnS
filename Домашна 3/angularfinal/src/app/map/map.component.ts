@@ -114,6 +114,7 @@ export class MapComponent implements OnInit {
 
 
   ngOnInit(): void {
+
     navigator.geolocation.getCurrentPosition((position) => {
       this.lat=position.coords.latitude;
       this.long=position.coords.longitude;
@@ -142,6 +143,7 @@ export class MapComponent implements OnInit {
       //  this.markerService.makeMarkers(this.map, this.place.at(i), this.centroid,this.layerGroup);
         // @ts-ignore
         const marker = L.marker([this.place.at(i).coordinate_x, this.place.at(i).coordinate_y]).addTo(this.map);
+        this.layerGroup.addLayer(marker);
         // @ts-ignore
         marker.bindPopup(`Име: ${this.place.at(i).name}<br>Објект: ${this.place.at(i).amenity}`).openPopup();
       }
