@@ -23,9 +23,11 @@ export class MapComponent implements OnInit {
     shadowAnchor: [4, 62],  // the same for the shadow
     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
   });
+
   public map: any;
   private lat: any;
   private long: any;
+  private selectedPlace: any;
   private routingControl: any;
   private element: any;
   public centroid: L.LatLngExpression = [41.9981, 21.4254]; //
@@ -36,7 +38,7 @@ export class MapComponent implements OnInit {
     console.log(this.place);
     this.map = L.map('map', {
       center: this.centroid,
-      zoom: 12
+      zoom: 14
     });
     // Define the base layers
     const streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -118,17 +120,87 @@ export class MapComponent implements OnInit {
         // this.markerService.makeMarkers(this.map,this.place.at(0),this.centroid)
         // this.markerService.makeMarkers(this.map,this.place.at(1),this.centroid)
         // this.markerService.makeMarkers(this.map,this.place.at(2),this.centroid)
+        this.showMarkers("all");
       }
     );
   }
-  showMarkers(amenity: string): void{
+  showMarkersBySearch(search: any) : void {
+    this.layerGroup.clearLayers();
+    if (this.routingControl != null) {
+      this.map.removeControl(this.routingControl);
+    }
+    for (let i = 0; i < this.place.length; i++) {
+      // @ts-ignore
+      if (this.place.at(i).name.toUpperCase() == search.toUpperCase()) {
+        //  this.markerService.makeMarkers(this.map, this.place.at(i), this.centroid,this.layerGroup);
+        // @ts-ignore
+        const marker = L.marker([this.place.at(i).coordinate_x, this.place.at(i).coordinate_y]).addTo(this.map);
+        // marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+        this.layerGroup.addLayer(marker);
+        // @ts-ignore
+        this.layerGroup.clearLayers();
+        // marker.openPopup()
+        if (this.routingControl != null) {
+          this.map.removeControl(this.routingControl);
+        }
+        // @ts-ignore
+        // marker.bindPopup(`Име: ${this.place.at(i).name}<br>Објект: ${this.place.at(i).amenity}`);
+        // @ts-ignore
+        this.layerGroup.addLayer(L.marker(marker.getLatLng()).bindPopup(`Име: ${this.place.at(i).name}<br>Објект: ${this.place.at(i).amenity}`).addTo(this.map).openPopup());
+        this.routingControl = L.Routing.control({
+          router: L.Routing.osrmv1({
+            serviceUrl: 'http://router.project-osrm.org/route/v1'
+          }),
+          showAlternatives: true,
+          lineOptions: {
+            styles: [{color: '#242c81', weight: 7}], extendToWaypoints: true, missingRouteTolerance: 1000
+          },
+          fitSelectedRoutes: true,
+          altLineOptions: {
+            styles: [{color: '#ed6852', weight: 7}],
+            extendToWaypoints: true,
+            missingRouteTolerance: 1000
+          },
+          show: true,
+          routeWhileDragging: false,
+          waypoints: [
+            this.element.getLatLng(),
+            marker.getLatLng()
+          ],
+
+        }).addTo(this.map);
+        // console.log()
+        // marker.openPopup();
+        // @ts-ignore
+        //marker onclick dava route na mestoto
+        marker.on('click', () => {
+          //   // Get the latitude and longitude of the marker
+          //   const latLng = marker.getLatLng();
+          //   // Create a LatLngBounds object with the marker's latitude and longitude
+          //   const bounds = L.latLngBounds(latLng, latLng);
+          //   // Fit the map view to the LatLngBounds object
+          //   this.map.fitBounds(bounds,{
+          //     pad: [20, 20], // add padding of 20 pixels to each side of the bounds
+          //     maxZoom: 13, // limit the zoom level to 13
+          //   });
+          //   marker.openPopup()
+
+
+        });
+
+      }
+    }
+  }
+  showMarkers(amenity: any): void{
+    this.selectedPlace= amenity;
+    console.log(this.selectedPlace);
     this.layerGroup.clearLayers();
     if(this.routingControl!=null){
       this.map.removeControl(this.routingControl);
     }
     for(let i=0;i<this.place.length;i++) {
       // @ts-ignore
-      if(this.place.at(i).amenity==amenity) {
+      if(this.place.at(i).amenity==amenity||amenity=="all") {
       //  this.markerService.makeMarkers(this.map, this.place.at(i), this.centroid,this.layerGroup);
         // @ts-ignore
         const marker = L.marker([this.place.at(i).coordinate_x, this.place.at(i).coordinate_y]).addTo(this.map);
@@ -161,12 +233,12 @@ export class MapComponent implements OnInit {
              router: L.Routing.osrmv1({
                serviceUrl:'http://router.project-osrm.org/route/v1'
              }),
-             showAlternatives: false,
+             showAlternatives: true,
              lineOptions:{
                styles:[{color:'#242c81',weight:7}],extendToWaypoints:true,missingRouteTolerance:1000},
              fitSelectedRoutes: true,
              altLineOptions: {styles: [{color: '#ed6852', weight: 7}],extendToWaypoints:true,missingRouteTolerance:1000},
-             show: false,
+             show: true,
              routeWhileDragging: false,
              waypoints: [
                this.element.getLatLng(),
