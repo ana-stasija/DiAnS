@@ -46,6 +46,7 @@ export class MapComponent implements OnInit {
         position: 'topleft',
         title: 'Toggle Fullscreen',
         titleCancel: 'Exit Fullscreen'
+
       }
     });
     // Define the base layers
@@ -139,44 +140,48 @@ export class MapComponent implements OnInit {
     }
     for (let i = 0; i < this.place.length; i++) {
       // @ts-ignore
-      if (this.place.at(i).name.toUpperCase() == search.toUpperCase()) {
+      if (this.place.at(i).name.toUpperCase() == search.toUpperCase() || this.place.at(i).name.toUpperCase().includes(search.toUpperCase()))  {
         //  this.markerService.makeMarkers(this.map, this.place.at(i), this.centroid,this.layerGroup);
         // @ts-ignore
         const marker = L.marker([this.place.at(i).coordinate_x, this.place.at(i).coordinate_y]).addTo(this.map);
         // marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
         this.layerGroup.addLayer(marker);
         // @ts-ignore
-        this.layerGroup.clearLayers();
         // marker.openPopup()
         if (this.routingControl != null) {
           this.map.removeControl(this.routingControl);
         }
         // @ts-ignore
         // marker.bindPopup(`Име: ${this.place.at(i).name}<br>Објект: ${this.place.at(i).amenity}`);
-        // @ts-ignore
-        this.layerGroup.addLayer(L.marker(marker.getLatLng()).bindPopup(`Име: ${this.place.at(i).name}<br>Објект: ${this.place.at(i).amenity}`).addTo(this.map).openPopup());
-        this.routingControl = L.Routing.control({
-          router: L.Routing.osrmv1({
-            serviceUrl: 'http://router.project-osrm.org/route/v1'
-          }),
-          showAlternatives: true,
-          lineOptions: {
-            styles: [{color: '#242c81', weight: 7}], extendToWaypoints: true, missingRouteTolerance: 1000
-          },
-          fitSelectedRoutes: true,
-          altLineOptions: {
-            styles: [{color: '#ed6852', weight: 7}],
-            extendToWaypoints: true,
-            missingRouteTolerance: 1000
-          },
-          show: true,
-          routeWhileDragging: false,
-          waypoints: [
-            this.element.getLatLng(),
-            marker.getLatLng()
-          ],
+        //@ts-ignore
+        this.layerGroup.addLayer(marker.bindPopup(`Име: ${this.place.at(i).name}<br>Објект: ${this.place.at(i).amenity}`).addTo(this.map).openPopup());
 
-        }).addTo(this.map);
+        // this.layerGroup.addLayer(L.marker(marker.getLatLng()).bindPopup(`Име: ${this.place.at(i).name}<br>Објект: ${this.place.at(i).amenity}`).addTo(this.map).openPopup());
+
+        // this.routingControl = L.Routing.control({
+        //   router: L.Routing.osrmv1({
+        //     serviceUrl: 'http://router.project-osrm.org/route/v1'
+        //   }),
+        //   showAlternatives: true,
+        //   lineOptions: {
+        //     styles: [{color: '#242c81', weight: 7}], extendToWaypoints: true, missingRouteTolerance: 1000
+        //   },
+        //   fitSelectedRoutes: true,
+        //   altLineOptions: {
+        //     styles: [{color: '#ed6852', weight: 7}],
+        //     extendToWaypoints: true,
+        //     missingRouteTolerance: 1000
+        //   },
+        //   show: true,
+        //   routeWhileDragging: false,
+        //   waypoints: [
+        //     this.element.getLatLng(),
+        //     marker.getLatLng()
+        //   ],
+        //
+        // }).addTo(this.map);
+
+
         // console.log()
         // marker.openPopup();
         // @ts-ignore
@@ -193,6 +198,36 @@ export class MapComponent implements OnInit {
           //   });
           //   marker.openPopup()
 
+          // this.layerGroup.clearLayers();
+
+          // marker.openPopup()
+          if(this.routingControl!=null){
+            this.map.removeControl(this.routingControl);
+          }
+          // @ts-ignore
+          // marker.bindPopup(`Име: ${this.place.at(i).name}<br>Објект: ${this.place.at(i).amenity}`);
+          // @ts-ignore
+          this.layerGroup.addLayer(marker.bindPopup(`Име: ${this.place.at(i).name}<br>Објект: ${this.place.at(i).amenity}`).addTo(this.map).openPopup());
+          this.routingControl = L.Routing.control({
+            router: L.Routing.osrmv1({
+              serviceUrl:'http://router.project-osrm.org/route/v1'
+            }),
+            showAlternatives: true,
+            lineOptions:{
+              styles:[{color:'#242c81',weight:7}],extendToWaypoints:true,missingRouteTolerance:1000},
+            fitSelectedRoutes: true,
+            altLineOptions: {styles: [{color: '#ed6852', weight: 7}],extendToWaypoints:true,missingRouteTolerance:1000},
+            show: true,
+            routeWhileDragging: false,
+            waypoints: [
+              this.element.getLatLng(),
+              marker.getLatLng()
+            ],
+
+          }).addTo(this.map);
+          // console.log()
+          // marker.openPopup();
+          // @ts-ignore
 
         });
 
