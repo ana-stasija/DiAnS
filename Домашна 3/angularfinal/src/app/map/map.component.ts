@@ -143,7 +143,7 @@ export class MapComponent implements OnInit {
         // @ts-ignore
         const marker = L.marker([this.place.at(i).coordinate_x, this.place.at(i).coordinate_y]).addTo(this.map);
         // @ts-ignore
-        marker.bindPopup(`Name: ${this.place.at(i).name}<br>Amenity: ${this.place.at(i).amenity}`).openPopup();
+        marker.bindPopup(`Име: ${this.place.at(i).name}<br>Објект: ${this.place.at(i).amenity}`).openPopup();
       }
     }
   }
