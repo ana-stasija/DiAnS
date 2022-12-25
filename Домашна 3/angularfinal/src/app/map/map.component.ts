@@ -174,8 +174,8 @@ export class MapComponent implements OnInit {
              ],
 
            }).addTo(this.map);
-          console.log()
-          marker.openPopup();
+          // console.log()
+          // marker.openPopup();
           // @ts-ignore
 
         });
