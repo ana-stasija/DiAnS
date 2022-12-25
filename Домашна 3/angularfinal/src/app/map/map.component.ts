@@ -227,9 +227,8 @@ export class MapComponent implements OnInit {
           }).addTo(this.map);
           // console.log()
           // marker.openPopup();
-          // @ts-ignore
-
         });
+        this.map.setView(this.centroid,12);
 
       }
     }
@@ -295,7 +294,7 @@ export class MapComponent implements OnInit {
           // @ts-ignore
 
         });
-
+        this.map.setView(this.centroid,12);
       }
     }
   }
