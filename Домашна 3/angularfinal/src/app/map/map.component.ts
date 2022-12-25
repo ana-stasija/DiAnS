@@ -141,14 +141,15 @@ export class MapComponent implements OnInit {
         //     pad: [20, 20], // add padding of 20 pixels to each side of the bounds
         //     maxZoom: 13, // limit the zoom level to 13
         //   });
-           L.Routing.control({
+          this.layerGroup.clearLayers();
+          L.Routing.control({
              router: L.Routing.osrmv1({
                serviceUrl:'http://router.project-osrm.org/route/v1'
              }),
              showAlternatives: false,
              lineOptions:{
                styles:[{color:'#242c81',weight:7}],extendToWaypoints:true,missingRouteTolerance:1000},
-             fitSelectedRoutes: false,
+             fitSelectedRoutes: true,
              altLineOptions: {styles: [{color: '#ed6852', weight: 7}],extendToWaypoints:true,missingRouteTolerance:1000},
              show: false,
              routeWhileDragging: false,
