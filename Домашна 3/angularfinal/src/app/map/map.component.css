@@ -1,0 +1,40 @@
+#prvdiv{
+width: 40%;
+padding-top: 150px;
+  padding-left: 100px;
+}
+#contact{
+  clear:both;
+  color: blue;
+}
+.map-container {
+
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 30px;
+  float: right;
+  width: 50%;
+}
+
+.map-frame {
+  border: 2px solid black;
+  height: 400px;
+  width: 100%;
+  float: right;
+}
+
+#map {
+  height: 400px;
+
+}
+button {
+  margin: 3px
+}
+#markeri{
+  width: 50%;
+}
+.topnav{
+  padding-left: 100px;
+}

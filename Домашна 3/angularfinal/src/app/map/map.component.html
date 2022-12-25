@@ -1,0 +1,42 @@
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+      integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+      crossorigin=""/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+<script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+<div class="map-container">
+  <div class="map-frame">
+    <div id="map"></div>
+  </div>
+</div>
+
+<!--<div id="markeri">-->
+<!--  <button (click)="showMarkers('hospital')">Show Hospitals</button>-->
+<!--  <button (click)="showMarkers('cafe')">Show Cafes</button>-->
+<!--  <button (click)="showMarkers('restaurant')">Show Restaurants</button>-->
+<!--  <button (click)="showMarkers('park')">Show Parks</button>-->
+<!--  <button (click)="showMarkers('mall')">Show Malls</button>-->
+<!--  <button (click)="showMarkers('supermarket')">Show Supermarkets</button>-->
+<!--  <button (click)="showMarkers('university')">Show Universities</button><br>-->
+<!--</div>-->
+<div id="prvdiv">
+  <label id="labela">Choose what you want do display on map:</label>
+
+  <select #places (change)="showMarkers(places.value)">
+    <option value="all">All</option>
+    <option value="hospital">Hospitals</option>
+    <option value="cafe">Cafes</option>
+    <option value="supermarket">Supermarkets</option>
+    <option value="university">Universities</option>
+    <option value="mall">Malls</option>
+    <option value="park">Parks</option>
+    <option value="restaurant">Restaurants</option>
+  </select>
+<!--  <button (click)="showMarkers()">Show Universities</button><br>-->
+</div>
+<div class="topnav">
+  <input #submit type="text" placeholder="Search for specific place...">
+  <button (click)="showMarkersBySearch(submit.value)">Submit</button>
+</div>
+<div id="contact">
+  <p>Contact: filiptrajkovski01@yahoo.com</p>
+</div>
