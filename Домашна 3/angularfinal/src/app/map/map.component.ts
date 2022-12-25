@@ -144,6 +144,17 @@ export class MapComponent implements OnInit {
         // @ts-ignore
         const marker = L.marker([this.place.at(i).coordinate_x, this.place.at(i).coordinate_y]).addTo(this.map);
         this.layerGroup.addLayer(marker);
+        marker.on('click', () => {
+          // Get the latitude and longitude of the marker
+          const latLng = marker.getLatLng();
+          // Create a LatLngBounds object with the marker's latitude and longitude
+          const bounds = L.latLngBounds(latLng, latLng);
+          // Fit the map view to the LatLngBounds object
+          this.map.fitBounds(bounds,{
+            pad: [20, 20], // add padding of 20 pixels to each side of the bounds
+            maxZoom: 13, // limit the zoom level to 13
+          });
+        });
         // @ts-ignore
         marker.bindPopup(`Име: ${this.place.at(i).name}<br>Објект: ${this.place.at(i).amenity}`).openPopup();
       }
