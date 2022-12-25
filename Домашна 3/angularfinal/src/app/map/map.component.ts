@@ -137,11 +137,13 @@ export class MapComponent implements OnInit {
     this.layerGroup.clearLayers();
 
     for(let i=0;i<this.place.length;i++) {
-
-
       // @ts-ignore
       if(this.place.at(i).amenity==amenity) {
-        this.markerService.makeMarkers(this.map, this.place.at(i), this.centroid,this.layerGroup);
+      //  this.markerService.makeMarkers(this.map, this.place.at(i), this.centroid,this.layerGroup);
+        // @ts-ignore
+        const marker = L.marker([this.place.at(i).coordinate_x, this.place.at(i).coordinate_y]).addTo(this.map);
+        // @ts-ignore
+        marker.bindPopup(`Name: ${this.place.at(i).name}<br>Amenity: ${this.place.at(i).amenity}`).openPopup();
       }
     }
   }
