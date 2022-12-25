@@ -86,24 +86,10 @@ export class MapComponent implements OnInit {
     //   );
     // }
 
-     L.marker([this.lat,this.long] as LatLngExpression, {icon: this.userIcon}).addTo(this.map);
+     this.element=L.marker([this.lat,this.long] as LatLngExpression, {icon: this.userIcon}).addTo(this.map);
     //first line routing
-    L.Routing.control({
-      router: L.Routing.osrmv1({
-        serviceUrl:'http://router.project-osrm.org/route/v1'
-      }),
-      showAlternatives: true,
-      lineOptions:{
-        styles:[{color:'#242c81',weight:7}],extendToWaypoints:true,missingRouteTolerance:1000},
-      fitSelectedRoutes: false,
-      altLineOptions: {styles: [{color: '#ed6852', weight: 7}],extendToWaypoints:true,missingRouteTolerance:1000},
-      show: false,
-      routeWhileDragging: false,
-      waypoints: [
-        L.latLng(this.lat, this.long),
-        L.latLng(42.008232, 21.459574)
-      ],
-    }).addTo(this.map);
+
+
 
 //last line of routing
   }
@@ -118,7 +104,7 @@ export class MapComponent implements OnInit {
     navigator.geolocation.getCurrentPosition((position) => {
       this.lat=position.coords.latitude;
       this.long=position.coords.longitude;
-      console.log(`lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`);
+    //  console.log(`lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`);
     });
     this.placeService.getAllBooks().subscribe(
       (data) => {
@@ -144,16 +130,33 @@ export class MapComponent implements OnInit {
         // @ts-ignore
         const marker = L.marker([this.place.at(i).coordinate_x, this.place.at(i).coordinate_y]).addTo(this.map);
         this.layerGroup.addLayer(marker);
+        //marker onclick dava route na mestoto
         marker.on('click', () => {
-          // Get the latitude and longitude of the marker
-          const latLng = marker.getLatLng();
-          // Create a LatLngBounds object with the marker's latitude and longitude
-          const bounds = L.latLngBounds(latLng, latLng);
-          // Fit the map view to the LatLngBounds object
-          this.map.fitBounds(bounds,{
-            pad: [20, 20], // add padding of 20 pixels to each side of the bounds
-            maxZoom: 13, // limit the zoom level to 13
-          });
+        //   // Get the latitude and longitude of the marker
+        //   const latLng = marker.getLatLng();
+        //   // Create a LatLngBounds object with the marker's latitude and longitude
+        //   const bounds = L.latLngBounds(latLng, latLng);
+        //   // Fit the map view to the LatLngBounds object
+        //   this.map.fitBounds(bounds,{
+        //     pad: [20, 20], // add padding of 20 pixels to each side of the bounds
+        //     maxZoom: 13, // limit the zoom level to 13
+        //   });
+           L.Routing.control({
+             router: L.Routing.osrmv1({
+               serviceUrl:'http://router.project-osrm.org/route/v1'
+             }),
+             showAlternatives: false,
+             lineOptions:{
+               styles:[{color:'#242c81',weight:7}],extendToWaypoints:true,missingRouteTolerance:1000},
+             fitSelectedRoutes: false,
+             altLineOptions: {styles: [{color: '#ed6852', weight: 7}],extendToWaypoints:true,missingRouteTolerance:1000},
+             show: false,
+             routeWhileDragging: false,
+             waypoints: [
+               this.element.getLatLng(),
+               marker.getLatLng()
+             ],
+           }).addTo(this.map);
         });
         // @ts-ignore
         marker.bindPopup(`Име: ${this.place.at(i).name}<br>Објект: ${this.place.at(i).amenity}`).openPopup();
