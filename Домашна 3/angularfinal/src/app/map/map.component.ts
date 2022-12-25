@@ -37,8 +37,7 @@ export class MapComponent implements OnInit {
       center: this.centroid,
       zoom: 12
     });
-
-// Define the base layers
+    // Define the base layers
     const streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       minZoom: 10,
@@ -64,6 +63,7 @@ export class MapComponent implements OnInit {
       "Satellite": satellite,
       "Terrain": terrain
     }).addTo(this.map);
+    this.layerGroup = L.layerGroup().addTo(this.map);
     // create 5 random jitteries and add them to map
     // const jittery = Array(5).fill(this.centroid).map(
     //   x => [x[0] + (Math.random() - .5)/10, x[1] + (Math.random() - .5)/10 ]
@@ -85,6 +85,7 @@ export class MapComponent implements OnInit {
     //     x => x.addTo(this.map)
     //   );
     // }
+
      L.marker([this.lat,this.long] as LatLngExpression, {icon: this.userIcon}).addTo(this.map);
     //first line routing
     L.Routing.control({
