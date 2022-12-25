@@ -21,6 +21,7 @@
     "@types/leaflet-routing-machine": "^3.2.4",
     "leaflet": "^1.9.3",
     "leaflet-routing-machine": "^3.2.12",
+    "leaflet.fullscreen": "^2.4.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
