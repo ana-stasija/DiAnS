@@ -177,6 +177,7 @@ export class MapComponent implements OnInit {
           ],
 
         }).addTo(this.map);
+
         // console.log()
         // marker.openPopup();
         // @ts-ignore
@@ -195,8 +196,9 @@ export class MapComponent implements OnInit {
 
 
         });
-
+        this.map.setView(this.centroid, 12);
       }
+      
     }
   }
   showMarkers(amenity: any): void{
@@ -259,7 +261,7 @@ export class MapComponent implements OnInit {
           // @ts-ignore
 
         });
-
+        this.map.setView(this.centroid, 12);
       }
     }
   }
