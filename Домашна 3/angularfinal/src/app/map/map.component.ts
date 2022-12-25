@@ -26,6 +26,7 @@ export class MapComponent implements OnInit {
   public map: any;
   private lat: any;
   private long: any;
+  private routingControl: any;
   private element: any;
   public centroid: L.LatLngExpression = [41.9981, 21.4254]; //
   private layerGroup: any;
@@ -122,14 +123,19 @@ export class MapComponent implements OnInit {
   }
   showMarkers(amenity: string): void{
     this.layerGroup.clearLayers();
-
+    if(this.routingControl!=null){
+      this.map.removeControl(this.routingControl);
+    }
     for(let i=0;i<this.place.length;i++) {
       // @ts-ignore
       if(this.place.at(i).amenity==amenity) {
       //  this.markerService.makeMarkers(this.map, this.place.at(i), this.centroid,this.layerGroup);
         // @ts-ignore
         const marker = L.marker([this.place.at(i).coordinate_x, this.place.at(i).coordinate_y]).addTo(this.map);
+        // marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
         this.layerGroup.addLayer(marker);
+        // @ts-ignore
+
         //marker onclick dava route na mestoto
         marker.on('click', () => {
         //   // Get the latitude and longitude of the marker
@@ -141,8 +147,17 @@ export class MapComponent implements OnInit {
         //     pad: [20, 20], // add padding of 20 pixels to each side of the bounds
         //     maxZoom: 13, // limit the zoom level to 13
         //   });
+        //   marker.openPopup()
           this.layerGroup.clearLayers();
-          L.Routing.control({
+          // marker.openPopup()
+          if(this.routingControl!=null){
+            this.map.removeControl(this.routingControl);
+          }
+          // @ts-ignore
+          // marker.bindPopup(`Име: ${this.place.at(i).name}<br>Објект: ${this.place.at(i).amenity}`);
+          // @ts-ignore
+          this.layerGroup.addLayer(L.marker(marker.getLatLng()).bindPopup(`Име: ${this.place.at(i).name}<br>Објект: ${this.place.at(i).amenity}`).addTo(this.map).openPopup());
+          this.routingControl = L.Routing.control({
              router: L.Routing.osrmv1({
                serviceUrl:'http://router.project-osrm.org/route/v1'
              }),
@@ -157,10 +172,14 @@ export class MapComponent implements OnInit {
                this.element.getLatLng(),
                marker.getLatLng()
              ],
+
            }).addTo(this.map);
+          console.log()
+          marker.openPopup();
+          // @ts-ignore
+
         });
-        // @ts-ignore
-        marker.bindPopup(`Име: ${this.place.at(i).name}<br>Објект: ${this.place.at(i).amenity}`).openPopup();
+
       }
     }
   }
