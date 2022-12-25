@@ -270,6 +270,7 @@ export class MapComponent implements OnInit {
           }
           // @ts-ignore
           // marker.bindPopup(`Име: ${this.place.at(i).name}<br>Објект: ${this.place.at(i).amenity}`);
+          //blabla
           // @ts-ignore
           this.layerGroup.addLayer(L.marker(marker.getLatLng()).bindPopup(`Име: ${this.place.at(i).name}<br>Објект: ${this.place.at(i).amenity}`).addTo(this.map).openPopup());
           this.routingControl = L.Routing.control({
