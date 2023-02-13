@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+
+
+<body>
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Amenity</th>
+    <th>Coordinate X</th>
+    <th>Coordinate Y</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let p of place">
+    <td>{{p.name}}</td>
+    <td>{{p.amenity}}</td>
+    <td>{{p.coordinate_x}}</td>
+    <td>{{p.coordinate_y}}</td>
+  </tbody>
+
+</table>
+</body>
+</html>
